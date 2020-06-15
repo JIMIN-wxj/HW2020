@@ -11,3 +11,14 @@ body{
     border: 1px solid #eee;
     box-shadow: 4px 6px 6px #888;
 }
+
+.todo-editor{
+    padding: 5px 20px;
+    display: flex;
+}
+
+.todo-editor input{
+    flex-grow: 1;
+    font-size: 1.2em;
+    padding: 2px 5px;
+}
