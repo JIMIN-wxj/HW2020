@@ -4,12 +4,13 @@ body{
     justify-content: center;
 }
 
+
 .todo-panel{
     width: 30em;
     min-height: 20em;
     margin-top: 5em;
-    border: 1px solid #eee;
     box-shadow: 4px 6px 6px #888;
+    border: 1px solid#eee;
 }
 
 .todo-editor{
@@ -17,8 +18,52 @@ body{
     display: flex;
 }
 
+
 .todo-editor input{
     flex-grow: 1;
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 2px 5px;
+}
+
+.todo-items{
+    padding: 5px 20px;
+}
+
+.todo-items > .task{
+    display: flex;
+    align-items: center;
+}
+
+
+.todo-items > .task > input{
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.todo-items > .task > label{
+    flex-grow: 1;
+}
+
+.todo-items .ctrlbar > button{
+    border: none;
+    background: none;
+    color: blue;
+    cursor: pointer;
+}
+
+.todo-items .ctrlbar > button:disabled{
+    color: grey;
+    cursor: pointer;
+}
+
+.todo-items .ctrlbar > button:disabled:hover{
+    font-weight: unset;
+}
+
+.todo-items .ctrlbar > button:hover{
+    font-weight: bolder;
+}
+
+.task.done > label{
+    text-decoration: line-through;
 }
