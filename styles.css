@@ -1,4 +1,3 @@
-
 body{
     display: flex;
     justify-content: center;
@@ -16,6 +15,27 @@ body{
 .todo-editor{
     padding: 5px 20px;
     display: flex;
+    background-color: #f44336;
+    color: #888;
+    text-align: center;  
+}
+
+.todo-editor:after {
+	content:"";
+	display:table;
+	clear:both;
+}
+
+.todo-editor button{  
+    width: 15%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 
@@ -23,6 +43,11 @@ body{
     flex-grow: 1;
     font-size: 1em;
     padding: 2px 5px;
+    border: none;
+     width: 75%;
+    float: left; 
+    outline: 0;
+    
 }
 
 .todo-items{
@@ -42,13 +67,24 @@ body{
 
 .todo-items > .task > label{
     flex-grow: 1;
+    background: #eee;
+    width: 1.5em;
+    height: 1.5em;
 }
+
+.todo-items > .task > label:hover{
+    background-color: grey;
+}
+
 
 .todo-items .ctrlbar > button{
     border: none;
     background: none;
     color: blue;
     cursor: pointer;
+    width: 1.5em;
+    height: 2em;
+    transition: 0.3s;
 }
 
 .todo-items .ctrlbar > button:disabled{
@@ -62,8 +98,12 @@ body{
 
 .todo-items .ctrlbar > button:hover{
     font-weight: bolder;
+    background-color: grey;
+    
 }
 
 .task.done > label{
     text-decoration: line-through;
+    background: #888;
+    color: #fff;
 }
