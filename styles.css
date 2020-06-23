@@ -1,8 +1,8 @@
+
 body{
     display: flex;
     justify-content: center;
 }
-
 
 .todo-panel{
     width: 30em;
@@ -11,7 +11,7 @@ body{
     box-shadow: 4px 6px 6px #888;
     border: 1px solid#eee;
 }
-
+/*输入框样式*/ 
 .todo-editor{
     padding: 5px 20px;
     display: flex;
@@ -25,7 +25,7 @@ body{
 	display:table;
 	clear:both;
 }
-
+/*"添加"按钮样式*/ 
 .todo-editor button{  
     width: 15%;
     background: #d9d9d9;
@@ -37,19 +37,17 @@ body{
     cursor: pointer;
     transition: 0.3s;
 }
-
-
+/*输入样式*/ 
 .todo-editor input{
     flex-grow: 1;
     font-size: 1em;
     padding: 2px 5px;
     border: none;
-     width: 75%;
+    width: 75%;
     float: left; 
-    outline: 0;
-    
+    outline: 0;   
 }
-
+/*输入内容的整体样式*/ 
 .todo-items{
     padding: 5px 20px;
 }
@@ -76,7 +74,13 @@ body{
     background-color: grey;
 }
 
+.task.done > label{
+    text-decoration: line-through;
+    background: #888;
+    color: #fff;
+}
 
+/*按钮样式*/ 
 .todo-items .ctrlbar > button{
     border: none;
     background: none;
@@ -98,12 +102,5 @@ body{
 
 .todo-items .ctrlbar > button:hover{
     font-weight: bolder;
-    background-color: grey;
-    
-}
-
-.task.done > label{
-    text-decoration: line-through;
-    background: #888;
-    color: #fff;
+    background-color: grey;   
 }
