@@ -1,4 +1,5 @@
 let tasks = [];
+let importitems = 0;
 
 function renderEditor() {
     let inputEl = document.querySelector("#default-todo-panel .todo-editor > input");
@@ -14,7 +15,7 @@ function renderEditor() {
 
         inputEl.value = "";
         tasks.push(newTask);
-        console.log("tasks: ", tasks);
+        //   console.log("tasks: ", tasks);
         renderTaskItems();
     };
 
@@ -26,13 +27,13 @@ function renderEditor() {
 
     let addEl = document.querySelector("#default-todo-panel .todo-editor > button");
     addEl.onclick = (e) => {
-        console.log("add click");
+        //   console.log("add click");
         addTask();
     };
 }
 
 function renderTaskItems() {
-    console.log("render items");
+    //   console.log("render items");
     let itemsEl = document.querySelector("#default-todo-panel .todo-items");
 
     itemsEl.querySelectorAll("div").forEach((node) => node.remove());
@@ -49,7 +50,7 @@ function renderTaskItems() {
 
         //  完成操作
         doneEl.checked = task.done;
-        
+
         if (task.done) {
             itemEl.classList.add("done");
         } else {
@@ -71,7 +72,7 @@ function renderTaskItems() {
         titleEl.innerText = task.title;
         itemEl.append(titleEl);
 
-        let ctrlbarEl = renderTaskCtrlBar(tasks, i);
+        let ctrlbarEl = renderTaskCtrlBar(task, itemEl, i);
 
         itemEl.append(ctrlbarEl);
         itemsEl.append(itemEl);
@@ -79,13 +80,45 @@ function renderTaskItems() {
 }
 
 //  按钮控制函数
-function renderTaskCtrlBar(tasks, taskIdx) {
+function renderTaskCtrlBar(task, itemEl, taskIdx) {
     let ctrlbarEl = document.createElement("div");
     ctrlbarEl.className = "ctrlbar";
 
+    let impEl = document.createElement('input');
+    impEl.type = 'checkbox'
+    impEl.checked = task.import;
+    if (task.import) {
+        itemEl.classList.add('import')
+    } else {
+        itemEl.classList.remove('import')
+    }
+    impEl.onchange = (e) => {
+        task.import = e.target.checked;
+        if (task.import) {
+            itemEl.classList.add("import");
+            let t = task;
+            for (let j = taskIdx; j > 0; j--) {
+                tasks[j] = tasks[j - 1];
+            }
+            tasks[0] = t;
+            importitems++;
+        } else {
+            itemEl.classList.remove("import");
+            let t = task;
+            for (let j = taskIdx; j < tasks.length - 1; j++) {
+                tasks[j] = tasks[j + 1];
+            }
+            tasks[tasks.length - 1] = t;
+            importitems--;
+        }
+        renderTaskItems();
+
+    }
+    ctrlbarEl.append(impEl);
+
     //  向上按钮
     let upEl = document.createElement("button");
-    if (taskIdx === 0) {
+    if (taskIdx === 0 || taskIdx === importitems) {
         upEl.disabled = true;
     }
     upEl.innerText = "↿";
@@ -97,9 +130,10 @@ function renderTaskCtrlBar(tasks, taskIdx) {
         renderTaskItems();
     };
     ctrlbarEl.append(upEl);
+    
     //  向下按钮
     let downEl = document.createElement("button");
-    if (taskIdx === tasks.length - 1) {
+    if (taskIdx === tasks.length - 1 || taskIdx === importitems - 1) {
         downEl.disabled = true;
     }
     downEl.innerText = "⇂";
@@ -111,17 +145,20 @@ function renderTaskCtrlBar(tasks, taskIdx) {
         renderTaskItems();
     };
     ctrlbarEl.append(downEl);
+    
     //  删除按钮
     let cancelEl = document.createElement("button");
     cancelEl.innerText = "X";
     //  进行删除操作
     cancelEl.onclick = () => {
-        tasks.splice(taskIdx, 1);
-        renderTaskItems();
+        let flag = confirm(`您确定删除'${task.title}'这个待办项吗`);
+        if(flag){
+            tasks.splice(taskIdx, 1);
+            renderTaskItems();  
+        }
     };
 
     ctrlbarEl.append(cancelEl);
     return ctrlbarEl;
 }
 renderEditor();
-renderTaskItems();
