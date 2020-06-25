@@ -6,10 +6,20 @@ body{
 
 .todo-panel{
     width: 30em;
-    min-height: 20em;
+    min-height: 22em;
     margin-top: 5em;
     box-shadow: 4px 6px 6px #888;
     border: 1px solid#eee;
+}
+.title-new{
+    padding: 5px 20px;
+    background-color: #f44336;
+    color: white;
+    text-align: center;
+    display: block;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold; 
 }
 /*输入框样式*/ 
 .todo-editor{
@@ -42,10 +52,20 @@ body{
     flex-grow: 1;
     font-size: 1em;
     padding: 2px 5px;
-    border: none;
     width: 75%;
-    float: left; 
-    outline: 0;   
+    float: left;
+    outline: 0;
+    outline-style: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: "楷体";
+}
+/*设置输入框点击发光效果*/
+.todo-editor input:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 2px 2px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 2px 2px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
 }
 /*输入内容的整体样式*/ 
 .todo-items{
@@ -57,10 +77,33 @@ body{
     align-items: center;
 }
 
-
 .todo-items > .task > input{
     width: 1.5em;
     height: 1.5em;
+    cursor: pointer;
+}
+.todo-items > .task > input:before {
+    content: "\a0";  
+    display: inline-block;
+    vertical-align: .2em;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.2em;
+    border-radius: 0.2em;
+    background-color: silver;
+    text-indent: 0.4em;
+}
+.todo-items > .task > input:checked:before {
+    content: "\2713";
+    background-color:  #f44336;
+}
+.todo-items > .task > input:focus:before {
+    box-shadow: 0 0 .1em .1em #58a;
+}
+.todo-items > .task > input:disabled:before {
+    background-color: gray;
+    box-shadow: none;
+    color: #555;
 }
 
 .todo-items > .task > label{
@@ -70,10 +113,12 @@ body{
     height: 1.5em;
 }
 
+/* hover时背景色改变 */
 .todo-items > .task > label:hover{
     background-color: grey;
 }
 
+/* 当被选中，文字中加横线 */
 .task.done > label{
     text-decoration: line-through;
     background: #888;
@@ -103,4 +148,26 @@ body{
 .todo-items .ctrlbar > button:hover{
     font-weight: bolder;
     background-color: grey;   
+}
+
+/*重要性样式处理*/
+.todo-items .ctrlbar input{
+    -webkit-appearance: none;  
+    width: 1.5em;
+    height: 1.5em;   
+    background-image: url(huang.jpg);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.task.import .ctrlbar input{
+    -webkit-appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+    background-image: url(hong.jpg);  
+    cursor: pointer;
+    transition: 0.3s;
+}
+.task.import >label{
+    color: red;
+    font-weight: bolder;
 }

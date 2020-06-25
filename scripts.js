@@ -3,7 +3,7 @@ let importitems = 0;
 
 function renderEditor() {
     let inputEl = document.querySelector("#default-todo-panel .todo-editor > input");
-    //  添加操作
+    //  如果键入内容为空则不执行插入
     let addTask = () => {
         if (inputEl.value.length === 0) {
             return;
@@ -18,13 +18,13 @@ function renderEditor() {
         //   console.log("tasks: ", tasks);
         renderTaskItems();
     };
-
+    //  按ENTER键执行插入操作
     inputEl.onkeypress = (e) => {
         if (e.key === "Enter") {
             addTask();
         }
     };
-
+    //  点击“添加”执行插入操作
     let addEl = document.querySelector("#default-todo-panel .todo-editor > button");
     addEl.onclick = (e) => {
         //   console.log("add click");
@@ -83,7 +83,7 @@ function renderTaskItems() {
 function renderTaskCtrlBar(task, itemEl, taskIdx) {
     let ctrlbarEl = document.createElement("div");
     ctrlbarEl.className = "ctrlbar";
-
+    //  是否重要按钮
     let impEl = document.createElement('input');
     impEl.type = 'checkbox'
     impEl.checked = task.import;
@@ -112,7 +112,6 @@ function renderTaskCtrlBar(task, itemEl, taskIdx) {
             importitems--;
         }
         renderTaskItems();
-
     }
     ctrlbarEl.append(impEl);
 
@@ -130,7 +129,7 @@ function renderTaskCtrlBar(task, itemEl, taskIdx) {
         renderTaskItems();
     };
     ctrlbarEl.append(upEl);
-    
+
     //  向下按钮
     let downEl = document.createElement("button");
     if (taskIdx === tasks.length - 1 || taskIdx === importitems - 1) {
@@ -145,16 +144,16 @@ function renderTaskCtrlBar(task, itemEl, taskIdx) {
         renderTaskItems();
     };
     ctrlbarEl.append(downEl);
-    
+
     //  删除按钮
     let cancelEl = document.createElement("button");
     cancelEl.innerText = "X";
     //  进行删除操作
     cancelEl.onclick = () => {
         let flag = confirm(`您确定删除'${task.title}'这个待办项吗`);
-        if(flag){
+        if (flag) {
             tasks.splice(taskIdx, 1);
-            renderTaskItems();  
+            renderTaskItems();
         }
     };
 
